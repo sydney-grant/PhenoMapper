@@ -1,0 +1,39 @@
+Package: PhenoMapper
+Type: Package
+Title: PhenoMap for single sample pathway scores with genomic data
+Version: 0.99.0
+Authors@R: c(
+  person("Sydney", "Grant", email = "sgrant@coh.org", role = c("aut", "cre"),
+  comment=c(ORCID="0000-0003-1849-5921")),
+  person("Aritro", "Nath", email = "anath@coh.org", role = c("aut")))
+Description: Interpreting the functional impact of somatic mutations and 
+    copy number alterations remains a major barrier in cancer genomics. 
+    While RNA-based tools like `GSVA` offer pathway-level insights, 
+    they are often impractical in clinical settings due to limited 
+    transcriptomic data. To address this, we developed `PhenoMapper`, 
+    trained to infer `GSVA`-like pathway activity scores from mutation 
+    and copy number alteration data. By linking mutations and copy number 
+    changes to biologically meaningful pathways, `PhenoMapper` enables 
+    interpretable, scalable analysis of tumor biology using widely available 
+    genomic data. All models are based on GSEA gene sets available through 
+    MSigDB 
+    (https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp?collection=H).
+    This package uses models pretrained on TCGA pan-cancer data
+    to predict single sample pathway scores with single nucleotide variants
+    and copy number alterations. 
+License: GPL-2
+Encoding: UTF-8
+LazyData: FALSE
+biocViews: Software, Technology, Sequencing, DNASeq, WholeGenome, Pathways
+Imports: randomForest, dplyr, pbapply, osfr
+Suggests: 
+    BiocStyle,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+VignetteEngine: knitr
+URL: https://github.com/sydney-grant/PhenoMap
+BugReports: https://github.com/sydney-grant/PhenoMap/issues 
+Config/testthat/edition: 3
+RoxygenNote: 7.3.2
