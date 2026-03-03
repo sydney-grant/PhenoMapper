@@ -3,6 +3,21 @@
 \name{PhenoMapper}
 \alias{PhenoMapper}
 \title{PhenoMapper: single sample pathway scores for genomic data}
-\description{
+\format{
+a software package with four functions and 5 data files
+}
+\usage{
 PhenoMapper
 }
+\value{
+a software packages for downloading pretrained models to calculate
+single sample pathway scores from genomic datasets
+}
+\description{
+A software package for downloading pretrained models to calculate
+single sample pathway scores from genomic datasets
+}
+\details{
+PhenoMapper
+}
+\keyword{packages}
