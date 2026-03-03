@@ -1,0 +1,110 @@
+---
+title: "PhenoMapper-Vignette"
+author:
+- name: Sydney Grant
+  affiliation: City of Hope
+  email: sgrant@coh.org
+- name: Aritro Nath
+  affiliation: City of Hope
+  email: anath@coh.org
+package: PhenoMap
+output:
+  BiocStyle::html_document:
+  toc: true
+  theme: cerulean
+vignette: |
+  %\VignetteIndexEntry{PhenoMapper-Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+Sydney R. Grant^1^, Aritro Nath^1^
+
+^1^Department of Medical Oncology, City of Hope, Duarte, CA
+
+Interpreting the functional impact of somatic mutations and copy number alterations remains a major barrier in cancer genomics. While RNA-based tools like `GSVA` offer pathway-level insights, they are often impractical in clinical settings due to limited transcriptomic data. To address this, we developed `PhenoMapper`, trained to infer `GSVA`-like pathway activity scores from mutation and copy number alteration data. By linking mutations and copy number changes to biologically meaningful pathways, `PhenoMapper` enables interpretable, scalable analysis of tumor biology using widely available genomic data. All models are based on GSEA gene sets available through MSigDB (https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp?collection=H).
+
+## Installation & Setup
+
+```{r, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("PhenoMapper")
+```
+
+```{r}
+library(PhenoMapper)
+```
+
+## Example Input Data
+
+```{r}
+data("example_cna")
+data("example_snv")
+```
+
+Copy Number Alterations Format:
+
+```{r}
+head(cna)
+```
+
+Single Nucleotide Variants Format:
+
+```{r}
+head(snv)
+```
+
+## Package Workflow
+
+Format CNA and SNV datasets for use with downstream functions
+```{r}
+data <- format_data(snv = snv, cna = cna)
+```
+
+Browse all available models
+```{r}
+all_pathways <- view_models()
+head(all_pathways)
+```
+
+Browse available models by search terms
+```{r}
+kegg_pathways <- view_models(keyword = "KEGG")
+head(kegg_pathways)
+```
+
+
+Download specific pathways of choice from OSF repository
+```{r}
+my_pathways <- c("KEGG_NUCLEOTIDE_EXCISION_REPAIR")
+my_models <- download_models(pathways = my_pathways)
+```
+Download pathways based on keywords from OSF repository
+```{r}
+my_models <- download_models(keyword = "MYC")
+```
+
+Calculate single sample pathway scores
+```{r}
+my_scores <- predict_scores(data = data, models = my_models)
+```
+
+```{r}
+my_scores
+```
+
+
+```{r}
+sessionInfo()
+```
+
